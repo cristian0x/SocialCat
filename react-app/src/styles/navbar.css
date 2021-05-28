@@ -1,0 +1,114 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap");
+
+:root {
+  --primary-blue: rgba(13, 110, 253, 0);
+}
+
+body {
+  font-family: "Roboto Condesed" sans-serif;
+}
+
+#mainNavbar {
+  position: sticky;
+}
+
+#mainContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+}
+
+#search {
+  position: absolute;
+  left: 54.4%;
+  top: 10%;
+  transform: translatex(-50%);
+}
+
+#searchBar {
+  border: none;
+  width: 31.25rem;
+  background-color: white;
+  border-radius: 1.875rem;
+}
+
+#navbar {
+  color: white;
+}
+
+#searchButton {
+  color: white;
+  border-color: white;
+  font-weight: 500;
+}
+
+.nav-link {
+  font-weight: 500;
+  font-size: large;
+  letter-spacing: 0.0375rem;
+  cursor: pointer;
+  margin-left: 0.75rem;
+  border-top: 0.1875rem solid var(--primary-blue);
+}
+
+.navbar-brand {
+  padding: 0 !important;
+  max-width: 17.25rem;
+  font-size: 1.7rem;
+}
+
+#navbarSupportedContent {
+  text-align: center;
+}
+
+.navbar-nav > li > a.active,
+.navbar-nav > li > a.active:focus {
+  border-top: 0.1875rem solid white;
+}
+
+.navbar-nav > li > a:hover {
+  border-top: 0.1875rem solid white;
+}
+
+.profilePicture {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-left: 0.825rem;
+  cursor: pointer;
+  margin-right: 2rem;
+  margin-left: 2rem;
+}
+
+.searchIcon {
+  color: white;
+}
+
+.catLogo {
+  height: 2.5rem;
+}
+
+@media (max-width: 768px) {
+  .navbar-brand {
+    margin-left: 0%;
+    transform: translateX(-110%);
+  }
+
+  #searchBar {
+    width: 10rem;
+  }
+
+  #search {
+    left: 60%;
+    transform: translatex(-50%);
+    top: -5%;
+    float: left;
+  }
+
+  .profilePicture {
+    margin-right: 0.99rem;
+  }
+}

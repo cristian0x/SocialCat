@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap");
+
+body {
+  font-family: "Roboto Condesed" sans-serif;
+}
+
+.activeUser {
+  display: flex;
+  margin-bottom: 0.2rem;
+  cursor: pointer;
+  letter-spacing: 0.0375rem;
+}
+
+.onlineIcon {
+  color: lightgreen;
+  margin-right: 1rem;
+}
+
+.offlineIcon {
+  color: gainsboro;
+  margin-right: 1rem;
+}
+
+.mainContainer {
+  float: right;
+  margin-right: 3%;
+}
+
+#heading {
+  color: royalblue;
+}

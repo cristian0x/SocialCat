@@ -1,0 +1,138 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap");
+
+body {
+  font-family: "Roboto Condesed" sans-serif;
+}
+
+#cardPost {
+  width: 30rem;
+  height: 80%;
+  margin-top: 2%;
+  -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+  box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
+}
+
+.userProfilePicture {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 0.625rem;
+}
+
+.top {
+  display: flex;
+  text-align: center;
+  align-items: center;
+}
+
+.postUsername {
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+#postUsernameButton {
+  border: none;
+  background-color: white;
+}
+
+.postDate {
+  margin-left: 0.625rem;
+  font-size: 0.99rem;
+}
+
+.postImage {
+  width: 100%;
+  margin-top: 0.25rem;
+  object-fit: contain;
+}
+
+.bottom {
+  padding-left: 1rem;
+}
+
+.likeButton {
+  border: none;
+  border-radius: 50%;
+}
+
+.likeIcon {
+  color: royalblue;
+}
+
+.heartButton {
+  border: none;
+  border-radius: 50%;
+}
+
+.heartIcon {
+  color: red;
+}
+
+#dropdownMenuButton {
+  border: none;
+  background-color: white;
+  width: 0;
+  margin-left: 10.5rem;
+  float: left;
+}
+
+.dropdown-menu {
+  left: 30% !important;
+  transform: translateY(75%) !important;
+  margin-top: -10%;
+}
+
+.dropdownComment {
+  left: 61% !important;
+  transform: translateY(75%) !important;
+  margin-top: -5%;
+}
+
+.count {
+  font-weight: 500;
+  font-size: 1.2rem;
+  margin-left: 0.6rem;
+}
+
+#showCommentsButton {
+  float: right;
+}
+
+#commentCard {
+  margin-bottom: -0.3rem;
+  margin-right: 0.5rem;
+}
+
+.commentProfilePicture {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 0.625rem;
+  margin-bottom: 3rem;
+}
+
+.commentContent {
+  display: inline-block;
+}
+
+#commentOptions {
+  float: right;
+}
+
+#dropdownComment {
+  color: red;
+}
+
+.addShowComments {
+  margin-left: 6rem;
+}
+
+.addCommentButton {
+  left: 40%;
+}
+
+.addIcon {
+  color: royalblue;
+}
