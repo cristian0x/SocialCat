@@ -8,8 +8,10 @@ class NavBar extends Component {
     return (
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
         <div className="container-fluid" id="mainContainer">
-          <img src="/assets/catLogo.png" alt="" className="catLogo" />
-          <a className="navbar-brand" href="/">
+          <a href="/home">
+            <img src="/assets/catLogo.png" alt="" className="catLogo" />
+          </a>
+          <a className="navbar-brand" href="/home">
             SocialCat
           </a>
           <button
@@ -26,21 +28,23 @@ class NavBar extends Component {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ml-auto">
               <li className="nav-item active">
-                <a className="nav-link" href="/">
+                <a className="nav-link" href="/home">
                   Wall
                 </a>
               </li>
               <li className="nav-item active">
-                <a className="nav-link" href="/">
+                <a className="nav-link" href="/profile">
                   Homepage <span className="sr-only">(current)</span>
                 </a>
               </li>
             </ul>
-            <img
-              src="/assets/profilePicture.png"
-              alt=""
-              className="profilePicture"
-            />
+            <a href="/profile">
+              <img
+                src="/assets/profilePicture.png"
+                alt=""
+                className="profilePicture"
+              />
+            </a>
           </div>
           <form className="form-inline my-2 my-lg-0 fixed-top" id="search">
             <Search className="searchIcon" />
