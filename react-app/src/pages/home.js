@@ -1,11 +1,8 @@
-import React, { useEffect } from "react";
-import ReactDOM from "react-dom";
+import React from "react";
 import "../styles/home.css";
 import NavBar from "../components/navbar";
 import Share from "../components/share";
 import Posts from "../components/posts";
-import Post from "../components/post";
-import Comment from "../components/comment";
 import ActiveFriends from "../components/activeFriends";
 import ChatIcon from "@material-ui/icons/Chat";
 import GroupIcon from "@material-ui/icons/Group";
@@ -34,11 +31,7 @@ export const Home = () => {
           <div className="col middle" id="scrollable">
             <Share />
             <Posts />
-            <div className="App">
-              <button type="button" className="seeMorePostsButton">
-                See more posts
-              </button>
-            </div>
+            <div className="App"></div>
           </div>
           <div className="col" id="activeFriends">
             <ActiveFriends className="fixed-right" />

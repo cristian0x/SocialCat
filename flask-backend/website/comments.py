@@ -1,7 +1,8 @@
+import flask_praetorian
 from flask import Blueprint, request, jsonify
 from .models import Comment
-from .models_schemas import CommentSchema
-from flask_login import current_user
+from .models_schemas import CommentSchema, CommentSchema2
+from flask_praetorian import current_user
 from . import db
 
 comments = Blueprint('comments', __name__)
@@ -25,11 +26,22 @@ def comments_list_of_post(postid):
     return jsonify({'comments': output})
 
 
-@comments.route('/addcomment', methods=['POST'])
-def add_post():
-    if request.method == 'POST':
-        content = request.form.get('content')
+@comments.route('/commentslist/<int:postid>/<int:range1>/<int:range2>', methods=['GET'])
+@flask_praetorian.auth_required
+def comments_list_of_post_limited(postid, range1, range2):
+    results = Comment.query.order_by(Comment.created).filter(Comment.post_id == postid).slice(range1, range2)
+    comment_schema = CommentSchema2(many=True)
+    output = comment_schema.dump(results)
 
-        new_comment = Comment(post_id=1, user_id=current_user.user_id, content=content)
-        db.session.add(new_comment)
-        db.session.commit()
+    return jsonify({'comments': output})
+
+
+@comments.route('/addcomment/<int:postid>', methods=['POST'])
+@flask_praetorian.auth_required
+def add_post(postid):
+    content = request.json.get('content')
+    print(content)
+    new_comment = Comment(post_id=postid, user_id=current_user().user_id, content=content)
+    db.session.add(new_comment)
+    db.session.commit()
+    return ''

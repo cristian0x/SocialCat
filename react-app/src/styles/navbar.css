@@ -44,6 +44,17 @@ body {
   font-weight: 500;
 }
 
+.exitButtonIcon {
+  color: white;
+}
+
+.exitButton {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: none;
+}
+
 .nav-link {
   font-weight: 500;
   font-size: large;
@@ -93,8 +104,9 @@ body {
 
 @media (max-width: 768px) {
   .navbar-brand {
-    margin-left: 0%;
+    margin-left: 5%;
     transform: translateX(-110%);
+    font-size: x-large;
   }
 
   #searchBar {
@@ -111,4 +123,11 @@ body {
   .profilePicture {
     margin-right: 0.99rem;
   }
+}
+
+.searchButton {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: none;
 }

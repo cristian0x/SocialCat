@@ -1,10 +1,6 @@
-import React, { Component } from "react";
+import React from "react";
 import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import Typography from "@material-ui/core/Typography";
-import clsx from "clsx";
 import Card from "@material-ui/core/Card";
 import IconButton from "@material-ui/core/IconButton";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
@@ -43,8 +39,8 @@ export default function Comment(props) {
             className="commentProfilePicture"
           />
           <div className="commentContent">
-            <h5>Anna</h5>
-            <span>Beautiful view!</span>
+            <h5>{props.first_name}</h5>
+            <span>{props.content}</span>
           </div>
           <div className="bottom">
             <IconButton

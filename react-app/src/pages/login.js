@@ -1,9 +1,15 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import "../styles/login.css";
 import "bootstrap/dist/css/bootstrap.css";
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import {
+  RegisterAuthAction,
+  LoginAuthAction,
+} from "../redux/actions/AuthAction";
+import store from "../redux/store";
 
-export class Login extends React.Component {
+class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = { isLoginOpen: true, isRegisterOpen: false };
@@ -45,8 +51,8 @@ export class Login extends React.Component {
             <img src="/assets/catLogoBlack1.png" id="icon" alt="User Icon" />
           </div>
 
-          {this.state.isLoginOpen && <LoginBox />}
-          {this.state.isRegisterOpen && <RegisterBox />}
+          {this.state.isLoginOpen && <LoginBox props={this.props} />}
+          {this.state.isRegisterOpen && <RegisterBox props={this.props} />}
 
           <div id="formFooter">
             <a
@@ -72,6 +78,9 @@ class RegisterBox extends React.Component {
       password: "",
       errors: [],
       pwdState: null,
+      redirect: null,
+      userState: {},
+      submit: false,
     };
   }
 
@@ -116,25 +125,26 @@ class RegisterBox extends React.Component {
   }
 
   submitRegister(e) {
+    var pattern = new RegExp(
+      /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i
+    );
+    e.preventDefault();
     if (this.state.username == "") {
       this.showValidationErr("username", "Username Cannot be empty!");
-    }
-    if (this.state.email == "") {
+    } else if (this.state.email == "") {
       this.showValidationErr("email", "Email Cannot be empty!");
-    }
-    if (this.state.password == "") {
+    } else if (!pattern.test(this.state.email)) {
+      this.showValidationErr("password", "Something is wrong!");
+    } else if (this.state.password == "") {
       this.showValidationErr("password", "Password Cannot be empty!");
-    }
+    } else {
+      //e.preventDefault();
 
-    e.preventDefault();
-
-    let opts = {
-      //username: this.state.username,
-      email: this.state.email,
-      password: this.state.password,
-    };
-    console.log(opts);
-
+      let opts = {
+        email: this.state.email,
+        password: this.state.password,
+      };
+      /*
     fetch("http://127.0.0.1:5000/sign-up", {
       method: "post",
       headers: {
@@ -145,9 +155,22 @@ class RegisterBox extends React.Component {
     })
       .then((response) => response.json())
       .then((response) => console.log(response));
+      */
+
+      this.setState({ userState: opts });
+
+      this.setState({ submit: true });
+
+      const { register } = this.props.props;
+      register(opts);
+    }
   }
 
   render() {
+    if (this.state.redirect) {
+      return <Redirect to={this.state.redirect} />;
+    }
+
     let usernameErr = null,
       passwordErr = null,
       emailErr = null;
@@ -190,7 +213,9 @@ class RegisterBox extends React.Component {
           value={this.username}
           onChange={this.onUsernameChange.bind(this)}
         />
-        <small className="danger-error">{usernameErr ? usernameErr : ""}</small>
+        <small className="danger-error" style={{ color: "red" }}>
+          {usernameErr ? usernameErr : ""}
+        </small>
         <input
           type="text"
           id="email"
@@ -201,7 +226,9 @@ class RegisterBox extends React.Component {
           onChange={this.onEmailChange.bind(this)}
         />
         <br />
-        <small className="danger-error">{emailErr ? emailErr : ""}</small>
+        <small className="danger-error" style={{ color: "red" }}>
+          {emailErr ? emailErr : ""}
+        </small>
         <input
           type="password"
           id="password"
@@ -211,7 +238,9 @@ class RegisterBox extends React.Component {
           value={this.password}
           onChange={this.onPasswordChange.bind(this)}
         />
-        <small className="danger-error">{passwordErr ? passwordErr : ""}</small>
+        <small className="danger-error" style={{ color: "red" }}>
+          {passwordErr ? passwordErr : ""}
+        </small>
         <br />
         {this.state.password && (
           <div className="password-state">
@@ -237,15 +266,36 @@ class LoginBox extends React.Component {
     this.state = {
       email: "",
       password: "",
+      errors: [],
     };
+  }
+
+  showValidationErr(elem, msg) {
+    this.setState((prevState) => ({
+      errors: [...prevState.errors, { elem, msg }],
+    }));
+  }
+
+  clearValidationErr(elem) {
+    this.setState((prevState) => {
+      let newArr = [];
+      for (let err of prevState.errors) {
+        if (elem != err.elem) {
+          newArr.push(err);
+        }
+      }
+      return { errors: newArr };
+    });
   }
 
   onEmailChange(e) {
     this.setState({ email: e.target.value });
+    this.clearValidationErr("password");
   }
 
   onPasswordChange(e) {
     this.setState({ password: e.target.value });
+    this.clearValidationErr("password");
   }
 
   submitLogin(e) {
@@ -256,18 +306,35 @@ class LoginBox extends React.Component {
       email: this.state.email,
       password: this.state.password,
     };
-    console.log(opts);
 
+    /*
     fetch("http://127.0.0.1:5000/login", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
+      credentials: "include",
       body: JSON.stringify(opts),
     })
       .then((response) => response.json())
-      .then((response) => console.log(response));
+      .then((response) =>
+        localStorage.setItem("jwtToken", response.access_token)
+      )
+      .catch((error) => localStorage.setItem("authError", error));
+    */
+
+    const { login } = this.props.props;
+    login(opts);
+
+    const state = store.getState();
+
+    if (!this.props.props.isLoggedIn) {
+      this.showValidationErr(
+        "password",
+        "Something is wrong! Please try again."
+      );
+    }
 
     //local storage
     //redirecting
@@ -275,6 +342,14 @@ class LoginBox extends React.Component {
   }
 
   render() {
+    let passwordErr = null;
+
+    for (let err of this.state.errors) {
+      if (err.elem == "password") {
+        passwordErr = err.msg;
+      }
+    }
+
     return (
       <form id="loginForm">
         <input
@@ -295,6 +370,9 @@ class LoginBox extends React.Component {
           value={this.password}
           onChange={this.onPasswordChange.bind(this)}
         />
+        <small className="danger-error" style={{ color: "red" }}>
+          {passwordErr ? passwordErr : ""}
+        </small>
         <input
           type="submit"
           className="fadeIn fourth"
@@ -306,6 +384,21 @@ class LoginBox extends React.Component {
   }
 }
 
-const LoginLayout = () => {
-  return <Login />;
-};
+function mapStateToProps(state) {
+  return {
+    user: state.user,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    register: (userState) => {
+      dispatch(RegisterAuthAction(userState));
+    },
+    login: (userState) => {
+      dispatch(LoginAuthAction(userState));
+    },
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

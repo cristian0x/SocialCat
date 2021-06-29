@@ -1,17 +1,12 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import "../styles/post.css";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import IconButton from "@material-ui/core/IconButton";
 import { makeStyles } from "@material-ui/core/styles";
-import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
-import Collapse from "@material-ui/core/Collapse";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import Typography from "@material-ui/core/Typography";
 import clsx from "clsx";
-import Card from "@material-ui/core/Card";
 import Comments from "./comments";
 
 const useStyles = makeStyles((theme) => ({
@@ -39,6 +34,9 @@ export default function Post(props) {
   const [expanded, setExpanded] = React.useState(false);
 
   const [value, setValue] = useState(props.value);
+  const [name, setName] = useState(props.name);
+  const [description, setDescription] = useState(props.description);
+  const [created, setCreated] = useState(props.created);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -54,9 +52,16 @@ export default function Post(props) {
             className="userProfilePicture"
           />
           <button type="button" id="postUsernameButton">
-            <span className="postUsername">Marek</span>
+            <span className="postUsername">
+              <a
+                href={`http://localhost:3000/profile/${props.userId}`}
+                className="profileLink"
+              >
+                {name}
+              </a>
+            </span>
           </button>
-          <span className="postDate">10 minutes ago</span>
+          <div className="postDate">{created}</div>
           <div className="dropdown">
             <IconButton
               type="button"
@@ -78,7 +83,7 @@ export default function Post(props) {
           </div>
         </div>
         <div className="center">
-          <span className="postContent">What a nice view!</span>
+          <span className="postContent">{description}</span>
           <img src="/assets/sunset.jpg" alt="" className="postImage" />
         </div>
         <div className="bottom">
@@ -95,7 +100,9 @@ export default function Post(props) {
             <FavoriteIcon className="heartIcon" />
           </IconButton>
           <span className="count">{value}</span>
-          <span className="addShowComments">Add/show comments</span>
+          <span className="addShowComments">
+            Show comments ({props.commentsNumber})
+          </span>
           <IconButton
             className={clsx(classes.expand, {
               [classes.expandOpen]: expanded,
@@ -107,7 +114,12 @@ export default function Post(props) {
           >
             <ExpandMoreIcon />
           </IconButton>
-          <Comments className={classes.root} in={expanded} />
+          <Comments
+            className={classes.root}
+            in={expanded}
+            post_id={props.post_id}
+            comments={props.comments}
+          />
         </div>
       </div>
     </div>

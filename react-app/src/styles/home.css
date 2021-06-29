@@ -17,19 +17,18 @@ body {
   background-color: white;
   color: red;
   font-size: 1.2rem;
-  margin-left: -63%;
+  margin-left: 25%;
 }
 
 #activeFriends {
-  position: fixed;
   margin-top: 4.7rem;
   float: right;
-  left: -5%;
+  left: 2%;
 }
 
 .middle {
   left: 30.75%;
-  z-index: 1;
+  z-index: 100;
 }
 
 #leftCol {

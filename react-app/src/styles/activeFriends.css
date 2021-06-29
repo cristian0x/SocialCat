@@ -9,6 +9,7 @@ body {
   margin-bottom: 0.2rem;
   cursor: pointer;
   letter-spacing: 0.0375rem;
+  font-size: 200%;
 }
 
 .onlineIcon {
@@ -28,4 +29,12 @@ body {
 
 #heading {
   color: royalblue;
+  font-size: 300%;
+}
+
+.profilePointer {
+  cursor: pointer;
+  text-decoration: none;
+  background-color: none;
+  color: black;
 }

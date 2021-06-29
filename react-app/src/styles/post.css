@@ -39,6 +39,7 @@ body {
 .postDate {
   margin-left: 0.625rem;
   font-size: 0.99rem;
+  width: 150% !important;
 }
 
 .postImage {
@@ -89,6 +90,10 @@ body {
   margin-top: -5%;
 }
 
+.dropdown {
+  width: 50% !important;
+}
+
 .count {
   font-weight: 500;
   font-size: 1.2rem;
@@ -126,7 +131,7 @@ body {
 }
 
 .addShowComments {
-  margin-left: 4.5rem;
+  margin-left: 5.5rem;
 }
 
 .addCommentButton {
@@ -135,4 +140,8 @@ body {
 
 .addIcon {
   color: royalblue;
+}
+
+.profileLink {
+  color: black;
 }
