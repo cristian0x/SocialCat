@@ -15,7 +15,7 @@ guard = flask_praetorian.Praetorian()
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'asasasasaa'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://s106:82xqy4ee@127.0.0.1/s106'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'secret'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['DEFAULT_ROLES_DISABLED'] = True
     app.config["JWT_ACCESS_LIFESPAN"] = {"hours": 24}
